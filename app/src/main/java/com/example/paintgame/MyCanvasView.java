@@ -5,12 +5,13 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.core.content.res.ResourcesCompat;
+
+import java.util.List;
 
 public class MyCanvasView extends View {
 
@@ -19,7 +20,9 @@ public class MyCanvasView extends View {
     private int mDrawColor;
     private static int mBackgroundColor;
     private static Canvas mExtraCanvas;
-    private Bitmap mExtraBitmap;
+    private static Bitmap mExtraBitmap;
+
+    private List<Path> pathList;
 
 
     private float mX, mY;
@@ -39,29 +42,19 @@ public class MyCanvasView extends View {
         mPaint.setColor(mDrawColor);
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
-        mPaint.setStyle(Paint.Style.STROKE); // default: FILL
-        mPaint.setStrokeJoin(Paint.Join.ROUND); // default: MITER
-        mPaint.setStrokeCap(Paint.Cap.ROUND); // default: BUTT
-        mPaint.setStrokeWidth(12); // default: Hairline-width (really thin)
-    }
-
-    public static void delete() {
-        mExtraCanvas.drawColor(mBackgroundColor);
-    }
-
-    public static void setPenColor(int mDrawColor){
-        mPaint.setColor(mDrawColor);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeJoin(Paint.Join.ROUND);
+        mPaint.setStrokeCap(Paint.Cap.ROUND);
+        mPaint.setStrokeWidth(12);
     }
 
     @Override
     protected void onSizeChanged(int width, int height,
                                  int oldWidth, int oldHeight) {
         super.onSizeChanged(width, height, oldWidth, oldHeight);
-        // Create bitmap, create canvas with bitmap, fill canvas with color.
         mExtraBitmap = Bitmap.createBitmap(width, height,
                 Bitmap.Config.ARGB_8888);
         mExtraCanvas = new Canvas(mExtraBitmap);
-        // Fill the Bitmap with the background color.
         mExtraCanvas.drawColor(mBackgroundColor);
     }
 
@@ -90,10 +83,8 @@ public class MyCanvasView extends View {
                 break;
             case MotionEvent.ACTION_UP:
                 touchUp();
-                // No need to invalidate because we are not drawing anything.
                 break;
             default:
-                // Do nothing.
         }
         return true;
     }
@@ -110,12 +101,12 @@ public class MyCanvasView extends View {
         if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
             // QuadTo() adds a quadratic bezier from the last point,
             // approaching control point (x1,y1), and ending at (x2,y2).
-            mPath.quadTo(mX, mY, (x + mX)/2, (y + mY)/2);
+            mPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
             // Reset mX and mY to the last drawn point.
             mX = x;
             mY = y;
             // Save the path in the extra bitmap,
-            // which we access through its canvas.
+            // which access through its canvas.
             mExtraCanvas.drawPath(mPath, mPaint);
         }
     }
@@ -126,4 +117,15 @@ public class MyCanvasView extends View {
     }
 
 
+    /****************************
+     Public API
+     **************************/
+
+    public static void delete() {
+        mExtraCanvas.drawColor(mBackgroundColor);
+    }
+
+    public static void setPenColor(int mDrawColor) {
+        mPaint.setColor(mDrawColor);
+    }
 }

@@ -1,13 +1,12 @@
 package com.example.paintgame;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MyCanvasView myCanvasView = (MyCanvasView)findViewById(R.id.myCanvasView);
+        MyCanvasView myCanvasView = (MyCanvasView) findViewById(R.id.myCanvasView);
 //        MyCanvasView myCanvasView = new MyCanvasView(this);
 //        myCanvasView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
 //        setContentView(myCanvasView);
@@ -31,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.delete:
                 MyCanvasView.delete();
                 return true;
@@ -58,10 +57,20 @@ public class MainActivity extends AppCompatActivity {
                 MyCanvasView.setPenColor(ResourcesCompat.getColor(getResources(),
                         R.color.baby_purple, null));
                 return true;
-
+            case R.id.defaultPen:
+                MyCanvasView.setPenColor(ResourcesCompat.getColor(getResources(),
+                        R.color.opaque_yellow, null));
+                return true;
+//            case R.id.save:
+//                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                        != PackageManager.PERMISSION_GRANTED) {
+//                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+//                } else {
+//                    MyCanvasView.save();
+//                }
         }
 
-         return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
     }
 
 }

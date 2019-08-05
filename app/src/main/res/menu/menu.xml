@@ -20,7 +20,14 @@
             <item
                 android:id="@+id/purplePen"
                 android:title="PurplePen" />
+            <item
+                android:id="@+id/defaultPen"
+                android:title="YellowPen" />
         </menu>
     </item>
+
+    <!--<item-->
+        <!--android:id="@+id/save"-->
+        <!--android:title="Save" />-->
 
 </menu>
