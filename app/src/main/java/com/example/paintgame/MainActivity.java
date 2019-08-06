@@ -10,15 +10,14 @@ import androidx.core.content.res.ResourcesCompat;
 
 public class MainActivity extends AppCompatActivity {
 
+    private MyCanvasView myCanvasView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MyCanvasView myCanvasView = (MyCanvasView) findViewById(R.id.myCanvasView);
-//        MyCanvasView myCanvasView = new MyCanvasView(this);
-//        myCanvasView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
-//        setContentView(myCanvasView);
+        myCanvasView = findViewById(R.id.myCanvasView);
     }
 
     @Override
@@ -61,13 +60,6 @@ public class MainActivity extends AppCompatActivity {
                 MyCanvasView.setPenColor(ResourcesCompat.getColor(getResources(),
                         R.color.opaque_yellow, null));
                 return true;
-//            case R.id.save:
-//                if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//                        != PackageManager.PERMISSION_GRANTED) {
-//                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-//                } else {
-//                    MyCanvasView.save();
-//                }
         }
 
         return super.onOptionsItemSelected(item);

@@ -11,8 +11,6 @@ import android.view.View;
 
 import androidx.core.content.res.ResourcesCompat;
 
-import java.util.List;
-
 public class MyCanvasView extends View {
 
     private static Paint mPaint;
@@ -21,9 +19,6 @@ public class MyCanvasView extends View {
     private static int mBackgroundColor;
     private static Canvas mExtraCanvas;
     private static Bitmap mExtraBitmap;
-
-    private List<Path> pathList;
-
 
     private float mX, mY;
     private static final float TOUCH_TOLERANCE = 4;
